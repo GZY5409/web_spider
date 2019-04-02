@@ -1,4 +1,4 @@
-import http.cookiejar, urllib.request
+import http.cookiejar , urllib.request
 
 filename = 'cookies.txt'
 cookie = http.cookiejar.CookieJar(filename)
