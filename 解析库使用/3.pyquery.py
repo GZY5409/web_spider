@@ -1,6 +1,6 @@
-from bs4 import BeautifulSoup
+from pyquery import PyQuery as pq
 
-text = ''' 
+html = ''' 
 <html class="expanded">
 <head>
 
@@ -34,7 +34,7 @@ text = '''
 <li><a href="http://v.baidu.com/" data-path="v?ct=3019898888&ie=utf-8&s=2&word=">视频</a></li>
 <li><a href="http://map.baidu.com/" data-path="?newmap=1&ie=utf-8&s=s%26wd%3D">地图</a></li>
 <li><a href="http://wenku.baidu.com/" data-path="search?ie=utf-8&word=">文库</a></li>
-<div class="header-divider">11111</div>
+<div class="header-divider"><p>11111</p></div>
 </ul>
 </div>
 <div id="app_tooltip_qrcode">
@@ -44,50 +44,15 @@ text = '''
 <div id="header" alog-group="header" alog-alias="hunter-header-start">
 '''
 
-# soup = BeautifulSoup('<p>hello world</p>', 'lxml')
-#
-# print(soup.p.string)
+text = pq(html)
+print(text('li'))
 
-soup1 = BeautifulSoup(text, 'lxml')  # 解释器的类型选用lxml，并对text初始化
+title = pq(url='http://www.woshipm.com/')  # 字符串及url的传入并初始化
+# doc = pq(filename='demo.html')  # 还可以传入本地网页文件
+print(title('title'))
 
-print(soup1.prettify())  # 缩进代码格式
-print(soup1.title.string)  #获取文本
+# CSS选择器
 
-print(type(soup1.title))
+text = pq(html)
+print(text('#header-wrapper .header-divider p'))
 
-print(soup1.title.name)
-print(soup1.div.attrs)  # 获取属性
-
-print(soup1.ul.contents)  # contents返回直接子节点列表
-
-
-# 方法选择器
-# find_all(name, attrs, recursive, text, **awargs) 查找所有符合的元素
-# find()用法一样，返回结果为一个
-print(soup1.find_all(name='li'))  # name 节点
-print(type(soup1.find_all(name='li')[0]))  # 返回的是列表，TAG类型的数据可以进行嵌套查询
-
-for ul in soup1.find_all(name='ul'):
-    print(ul.find_all(name='li'))
-    for li in ul.find_all(name='li'):
-        print(li.string)
-
-# attrs 字典格式的参数及参数值
-print(soup1.find_all(attrs={'href': 'https://zhidao.baidu.com/'}))
-
-# text  匹配节点的文本
-
-print(soup1.find_all(text='新闻'))
-
-
-# select()CSS选择器
-
-print(soup1.select('li a'))
-print(type(soup1.select('li a')))
-
-print(soup1.select('#usrbar'))  # #id选择器
-
-print(soup1.select('.header-divider'))  # .类选择器
-
-for a in soup1.select('li a'):
-    print(a['href'])  # 可以嵌套查询，属性值
