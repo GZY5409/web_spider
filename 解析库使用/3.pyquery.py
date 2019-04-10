@@ -56,3 +56,31 @@ print(title('title'))
 text = pq(html)
 print(text('#header-wrapper .header-divider p'))
 
+print(text.find('a'))  # find方法,查找所有子孙节点
+
+print(text.children('#header-wrapper'))  # 查找某个节点的子节点
+
+print(text.parents('#header-wrapper'))  # 查找某个节点的父节点
+
+# 遍历方法
+
+lis = text('li').items()  # 使用items()方法可以得到一个生成器，遍历后就可以得到所有对象
+for li in lis:
+    print(li, type(li))
+    print(li.find('a'))  # 在调用其他方法
+
+
+# 获取属性值
+
+a = text('a')
+print(a.attr('href'))  # attr()获取href的属性值
+
+print(a.text())  # text()获取所有节点文本
+
+print(a.html())  # 获取一个html
+
+
+# 节点操作
+
+# addclass(), removeclass()
+
