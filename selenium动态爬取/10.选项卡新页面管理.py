@@ -15,5 +15,6 @@ browser.switch_to_window(browser.window_handles[1])
 time.sleep(3)
 
 browser.close()  # 关闭当前选项卡
+time.sleep(3)
 browser.quit()  # 直接关闭浏览器
 
